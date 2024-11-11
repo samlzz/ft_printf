@@ -1,0 +1,59 @@
+t_flag	*init_printf(size_t format_l, t_str *dest)
+{
+	dest->len = format_l + PADDING_BUFF;
+	dest->str = malloc(dest->len);
+	if (!dest->str)
+		return (NULL);
+	return (newflags_dict());
+}
+
+void	free_for_quit(t_printf_context ctx, char *to_free1)
+{
+	va_end(*ctx.args);
+	if (ctx.fdict)
+		free(ctx.fdict);
+	if (to_free1)
+		free(to_free1);
+}
+
+int	ft_printf(char *format, ...)
+{
+	va_list	args;
+	t_flag	*f_dict;
+	t_str	dest;
+	t_str	tmp;
+	size_t	i;
+	size_t	j;
+	t_str	(*f)(va_list *args);
+
+	f_dict = init_printf(ft_strlen(format), &dest);
+	if (!f_dict)
+		return (0);
+	va_start(args, format);
+	while (format[i])
+	{
+		while (format[i] != '%' && format[i])
+			dest.str[j++] = format[i++];
+		if (!format[i])
+			break ;
+		f = flag_to_str(f_dict, format[++i]);
+		if (!f)
+		{
+			if (!format[i])
+				break ;
+			dest.str[j++] = format[i++];
+			continue;
+		}
+		tmp = f(&args);
+		if (j + tmp.len > dest.len)
+			if (!realloc_str(&dest, tmp.len))
+				return (free_for_quit(&args, f_dict, tmp.str), 0);
+		ft_memcpy(dest.str + j, tmp.str, tmp.len);
+		j += tmp.len;
+		free(tmp.str);
+		i++;
+	}
+	write(1, dest.str, j);
+	free_for_quit(&args, f_dict, dest.str);
+	return (j);
+}
