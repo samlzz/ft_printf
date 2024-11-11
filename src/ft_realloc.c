@@ -1,5 +1,5 @@
-#include <stdlib.h>
 #include "ftprintf.h"
+#include <stdlib.h>
 
 void	*ft_realloc(void *ptr, size_t og_size, size_t new_size)
 {

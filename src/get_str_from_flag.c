@@ -1,5 +1,4 @@
 #include "ftprintf.h"
-#include <string.h>
 
 t_str	newstr(char *str)
 {
@@ -20,7 +19,7 @@ t_str	get_char(va_list *args)
 
 	str[0] = (char)va_arg(*args, int);
 	str[1] = 0;
-	return (newstr(strdup(str)));
+	return (newstr(ft_strdup(str)));
 }
 
 //* STR
@@ -30,8 +29,8 @@ t_str	get_str(va_list *args)
 
 	arg = va_arg(*args, char *);
 	if (!arg)
-		return (newstr(strdup("(null)")));
-	return (newstr(strdup(arg)));
+		return (newstr(ft_strdup("(null)")));
+	return (newstr(ft_strdup(arg)));
 }
 
 //* INT
