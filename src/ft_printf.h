@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:16 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 20:06:47 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/13 21:55:30 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 int				ft_printf(const char *format, ...);
 
 //* Flag 
-# define FLAG_NB 8
-
 typedef t_str	(*t_get_str_func)(va_list * args);
 
 typedef struct s_flag
@@ -39,10 +37,11 @@ t_flag			*newflags_dict(void);
 //* Get string from args
 t_str			newstr(char *str);
 t_str			get_char(va_list *args);
+t_str			get_percent(va_list *args);
 t_str			get_str(va_list *args);
 t_str			get_int(va_list *args);
-t_str			get_unsigned_int(va_list *args);
 
+t_str			get_unsigned_int(va_list *args);
 t_str			get_hex_int(va_list *args);
 t_str			get_upperhex_int(va_list *args);
 t_str			get_hex_pointer(va_list *args);

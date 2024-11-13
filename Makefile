@@ -6,21 +6,21 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 18:21:28 by sliziard          #+#    #+#              #
-#    Updated: 2024/11/13 20:36:55 by sliziard         ###   ########.fr        #
+#    Updated: 2024/11/13 22:00:31 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
-#NAME = fttest
+#NAME = libftprintf.a
+NAME = fttest
 
-C_FILES =	flags.c				\
-			ft_convert.c		\
-			ft_convert_base.c	\
-			ft_printf.c			\
-			ft_realloc.c		\
-			get_str_from_flag.c	\
-			get_hex_from_flag.c	\
-
+C_FILES =	flags.c					\
+			ft_convert.c			\
+			ft_convert_base.c		\
+			ft_printf.c				\
+			ft_realloc.c			\
+			get_str_from_flag.c		\
+			get_str_from_flag2.c	\
+			main.c
 LIBFT_DIR = libft
 LIBFT = libft.a
 LIBS = 
@@ -51,15 +51,17 @@ OBJS = $(addprefix $(OBJ_DIR), $(notdir $(SRCS:.c=.o)))
 ifeq ($(suffix $(NAME)), .a)
 	LINK_CMD = ar -rcs $(NAME) $(OBJS)
 	ADD_LIBFT = $(addprefix $(LIBFT_DIR)/, $(shell cat $(LIBFT_DIR)/libft_obj.txt))
+	LIBFT_RULE = $(MAKE) objects
 else
 	LINK_CMD = $(CC) $(CFLAGS) $(OBJS) $(LIBFT_DIR)/$(LIBFT) -o $(NAME)
 	ADD_LIBFT = 
+	LIBFT_RULE = $(MAKE)
 endif
 
-all: $(LIBFT) $(NAME)
+all: lib $(NAME)
 
-$(LIBFT): $(LIBFT_DIR)
-	$(MAKE) objects -C $(LIBFT_DIR)
+lib: $(LIBFT_DIR)
+	$(LIBFT_RULE) -C $(LIBFT_DIR)
 
 $(LIBFT_DIR):
 	$(MD) $(LIBFT_DIR)
@@ -86,6 +88,9 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+run: all
+	./$(NAME) | cat -e
 
 trp_test:
 	git clone https://github.com/Tripouille/printfTester.git ign_printfTester || true

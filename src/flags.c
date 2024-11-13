@@ -6,12 +6,13 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:26 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 17:06:52 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/13 21:55:37 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
+# define FLAG_NB 9
 
 t_get_str_func	flag_to_str(t_flag *dict, char flag)
 {
@@ -38,16 +39,16 @@ t_get_str_func	flag_to_str(t_flag *dict, char flag)
 ?	% [afficher %]
 */
 
-void	init_flags(t_flag *tab, t_flag *tmp)
+void	init_flags1(t_flag *tab, t_flag *tmp)
 {
 	tmp->flag = 'c';
 	tmp->func = &get_char;
 	tab[0] = *tmp;
+	tmp->flag = '%';
+	tmp->func = &get_percent;
+	tab[1] = *tmp;
 	tmp->flag = 's';
 	tmp->func = &get_str;
-	tab[1] = *tmp;
-	tmp->flag = 'p';
-	tmp->func = &get_hex_pointer;
 	tab[2] = *tmp;
 	tmp->flag = 'd';
 	tmp->func = &get_int;
@@ -65,6 +66,13 @@ void	init_flags(t_flag *tab, t_flag *tmp)
 	tab[7] = *tmp;
 }
 
+void	init_flags2(t_flag *tab, t_flag *tmp)
+{
+	tmp->flag = 'p';
+	tmp->func = &get_hex_pointer;
+	tab[8] = *tmp;
+}
+
 t_flag	*newflags_dict(void)
 {
 	t_flag	*dict;
@@ -73,6 +81,7 @@ t_flag	*newflags_dict(void)
 	dict = malloc(sizeof(t_flag) * FLAG_NB);
 	if (!dict)
 		return (NULL);
-	init_flags(dict, &tmp);
+	init_flags1(dict, &tmp);
+	init_flags2(dict, &tmp);
 	return (dict);
 }

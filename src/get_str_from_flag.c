@@ -6,11 +6,12 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:08 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/12 18:59:27 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:08:33 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdlib.h>
 
 t_str	newstr(char *str)
 {
@@ -27,11 +28,19 @@ t_str	newstr(char *str)
 //* CHAR
 t_str	get_char(va_list *args)
 {
-	char	str[2];
+	t_str	result;
 
-	str[0] = (char)va_arg(*args, int);
-	str[1] = 0;
-	return (newstr(ft_strdup(str)));
+	result.len = 1;
+	result.str = malloc(sizeof (char));
+	result.str[0] = (char)va_arg(*args, int);
+	return (result);
+}
+
+//* %
+t_str	get_percent(va_list *args)
+{
+	(void)args;
+	return (newstr(ft_strdup("%")));
 }
 
 //* STR
@@ -49,12 +58,4 @@ t_str	get_str(va_list *args)
 t_str	get_int(va_list *args)
 {
 	return (newstr(ft_itoa(va_arg(*args, int))));
-}
-
-//* UNSIGNED INT
-t_str	get_unsigned_int(va_list *args)
-{
-	return (newstr(
-			ft_ltoa((long)va_arg(*args, unsigned int))
-		));
 }

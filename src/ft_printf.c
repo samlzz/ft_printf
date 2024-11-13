@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 20:06:40 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/13 21:46:52 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	fill_fstr(const char *format, t_str *dst, t_flag *fdict, va_list *va)
 		{
 			if (!format[i])
 				break ;
-			dst->str[j++] = format[i++];
+			dst->str[j++] = '%';
 			continue ;
 		}
 		if (!put_in_dest(dst, f(va), &i, &j))
