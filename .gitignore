@@ -1,3 +1,9 @@
-.vscode/**
+**/main.c
+**/a.out
+**/**.swp
+.vscode/*
+**/ign_*
+test/*
+
 build/**
 libft/**

@@ -1,6 +1,18 @@
-#include "ftprintf.h"
-#include <stdlib.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_convert_base.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 17:50:35 by sliziard          #+#    #+#             */
+/*   Updated: 2024/11/12 20:28:21 by sliziard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 #include <limits.h>
+#include <stdlib.h>
 
 bool	valid_base(char *base, size_t *len)
 {

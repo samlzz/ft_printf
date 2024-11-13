@@ -1,7 +1,19 @@
-#include "ftprintf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flags.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 17:50:26 by sliziard          #+#    #+#             */
+/*   Updated: 2024/11/13 17:06:52 by sliziard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 #include <stdlib.h>
 
-t_str (*flag_to_str(t_flag * dict, char flag))(va_list *)
+t_get_str_func	flag_to_str(t_flag *dict, char flag)
 {
 	unsigned int	i;
 
@@ -19,10 +31,10 @@ t_str (*flag_to_str(t_flag * dict, char flag))(va_list *)
 * %:
 ?	c [char]
 ?	s [string]
-?	p [pointeur en hex]
+?	p [pointer hex]
 ?	d | i [int]
 ?	u [unsigned int]
-?	x / X [int en hex (minuscule / majuscule)] 
+?	x / X [int hex (lower / upper)]
 ?	% [afficher %]
 */
 
@@ -58,7 +70,7 @@ t_flag	*newflags_dict(void)
 	t_flag	*dict;
 	t_flag	tmp;
 
-	dict = malloc(sizeof (t_flag) * FLAG_NB);
+	dict = malloc(sizeof(t_flag) * FLAG_NB);
 	if (!dict)
 		return (NULL);
 	init_flags(dict, &tmp);

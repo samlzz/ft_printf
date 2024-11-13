@@ -1,78 +1,99 @@
-#include "ftprintf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
+/*   Updated: 2024/11/13 20:06:40 by sliziard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 #include <stdlib.h>
 #include <unistd.h>
 
-t_flag	*init_printf(size_t format_l, t_str *dest)
+void	free_for_quit(va_list *args, t_flag *fdict, char *to_free1)
 {
-	dest->len = format_l + PADDING_BUFF;
-	dest->str = malloc(dest->len);
-	if (!dest->str)
-		return (NULL);
-	return (newflags_dict());
-}
-
-void	free_for_quit(t_printf_context ctx, char *to_free1)
-{
-	va_end(*ctx.args);
-	if (ctx.fdict)
-		free(ctx.fdict);
+	va_end(*args);
+	if (fdict)
+		free(fdict);
 	if (to_free1)
 		free(to_free1);
 }
 
-void	put_in_dest(t_str *dest, t_str src, size_t *i, size_t *j)
+int	ft_printf(const char *format, ...)
 {
-	ft_memcpy(dest->str + *j, src.str, src.len);
-	*j += src.len;
-	free(src.str);
-	*i += 1;
+	va_list	args;
+	t_flag	*fdict;
+	t_str	dest;
+
+	dest.len = ft_strlen(format) + PADDING_BUFF;
+	dest.str = malloc(dest.len);
+	if (!dest.str)
+		return (0);
+	fdict = newflags_dict();
+	if (!fdict)
+	{
+		free(dest.str);
+		return (0);
+	}
+	va_start(args, format);
+	fill_fstr(format, &dest, fdict, &args);
+	if (!dest.str)
+	{
+		free_for_quit(&args, fdict, NULL);
+		return (0);
+	}
+	write(1, dest.str, dest.len);
+	free_for_quit(&args, fdict, dest.str);
+	return (dest.len);
 }
 
-void	fill_fstr(char *format, t_str *fdest, t_printf_context ctx)
+bool	put_in_dest(t_str *dest, t_str flag, size_t *i, size_t *j)
 {
-	size_t	i;
-	size_t	j;
-	t_str	tmp;
+	size_t	alloc_s;
 
-	t_str (*f)(va_list *);
+	if (*j + flag.len > dest->len)
+	{
+		alloc_s = dest->len + flag.len + PADDING_BUFF;
+		dest->str = ft_realloc(dest->str, dest->len, alloc_s);
+		if (!dest->str)
+			return (false);
+		dest->len = alloc_s;
+	}
+	ft_memcpy(dest->str + *j, flag.str, flag.len);
+	free(flag.str);
+	*j += flag.len;
+	*i += 1;
+	return (true);
+}
+
+void	fill_fstr(const char *format, t_str *dst, t_flag *fdict, va_list *va)
+{
+	size_t			i;
+	size_t			j;
+	t_get_str_func	f;
+
 	i = 0;
 	j = 0;
 	while (format[i])
 	{
 		while (format[i] != '%' && format[i])
-			fdest->str[j++] = format[i++];
+			dst->str[j++] = format[i++];
 		if (!format[i])
 			break ;
-		f = flag_to_str(ctx.fdict, format[++i]);
+		f = flag_to_str(fdict, format[++i]);
 		if (!f)
 		{
 			if (!format[i])
 				break ;
-			fdest->str[j++] = format[i++];
+			dst->str[j++] = format[i++];
 			continue ;
 		}
-		tmp = f(ctx.args);
-		if (j + tmp.len > fdest->len)
-			if (!realloc_str(fdest, tmp.len))
-				return (free_for_quit(ctx, tmp.str));
-		put_in_dest(fdest, tmp, &i, &j);
+		if (!put_in_dest(dst, f(va), &i, &j))
+			return (free_for_quit(va, fdict, NULL));
 	}
-	fdest->len = j;
-}
-
-int	ft_printf(char *format, ...)
-{
-	va_list				args;
-	t_printf_context	ctx;
-	t_str				dest;
-
-	ctx.fdict = init_printf(ft_strlen(format), &dest);
-	if (!ctx.fdict)
-		return (0);
-	va_start(args, format);
-	ctx.args = &args;
-	fill_fstr(format, &dest, ctx);
-	write(1, dest.str, dest.len);
-	free_for_quit(ctx, dest.str);
-	return (dest.len);
+	dst->len = j;
 }

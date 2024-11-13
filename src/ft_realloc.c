@@ -1,4 +1,16 @@
-#include "ftprintf.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_realloc.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/12 17:51:01 by sliziard          #+#    #+#             */
+/*   Updated: 2024/11/13 14:21:00 by sliziard         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "ft_printf.h"
 #include <stdlib.h>
 
 void	*ft_realloc(void *ptr, size_t og_size, size_t new_size)
@@ -18,16 +30,4 @@ void	*ft_realloc(void *ptr, size_t og_size, size_t new_size)
 	}
 	free(ptr);
 	return (new_ptr);
-}
-
-bool	realloc_str(t_str *to_format, size_t flag_str_l)
-{
-	size_t	alloc_s;
-
-	alloc_s = to_format->len + flag_str_l + PADDING_BUFF;
-	to_format->str = ft_realloc(to_format->str, to_format->len, alloc_s);
-	if (!to_format->str)
-		return (false);
-	to_format->len = alloc_s;
-	return (true);
 }
