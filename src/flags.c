@@ -6,13 +6,13 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:26 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 21:55:37 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/13 22:48:56 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
-# define FLAG_NB 9
+#define FLAG_NB 9
 
 t_get_str_func	flag_to_str(t_flag *dict, char flag)
 {

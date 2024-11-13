@@ -6,12 +6,12 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 18:21:28 by sliziard          #+#    #+#              #
-#    Updated: 2024/11/13 22:44:41 by sliziard         ###   ########.fr        #
+#    Updated: 2024/11/13 23:05:36 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-#NAME = libftprintf.a
-NAME = fttest
+NAME = libftprintf.a
+#NAME = fttest
 
 C_FILES =	flags.c					\
 			ft_convert.c			\
@@ -20,7 +20,7 @@ C_FILES =	flags.c					\
 			ft_realloc.c			\
 			get_str_from_flag.c		\
 			get_str_from_flag2.c	\
-			main.c
+#			main.c
 LIBFT_DIR = libft
 LIBFT = libft.a
 LIBS = 
