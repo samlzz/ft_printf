@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 21:46:52 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/18 14:35:21 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ bool	put_in_dest(t_str *dest, t_str flag, size_t *i, size_t *j)
 			return (false);
 		dest->len = alloc_s;
 	}
-	ft_memcpy(dest->str + *j, flag.str, flag.len);
+	ft_memmove(dest->str + *j, flag.str, flag.len);
 	free(flag.str);
 	*j += flag.len;
 	*i += 1;

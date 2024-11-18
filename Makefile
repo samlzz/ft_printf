@@ -6,13 +6,13 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 18:21:28 by sliziard          #+#    #+#              #
-#    Updated: 2024/11/14 17:28:14 by sliziard         ###   ########.fr        #
+#    Updated: 2024/11/18 11:36:18 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #* VARIABLES
-NAME = libftprintf.a
-#NAME = fttest
+#NAME = libftprintf.a
+NAME = fttest
 
 #TODO: Folders name must end with '\'
 SRC_DIR = src/
@@ -34,6 +34,7 @@ C_FILES =	flags.c					\
 			ft_realloc.c			\
 			get_str_from_flag.c		\
 			get_str_from_flag2.c	\
+			main.c
 
 #* Colors
 
