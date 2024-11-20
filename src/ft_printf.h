@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:16 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 21:55:30 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:32:11 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdbool.h>
 
 # define PADDING_BUFF 100
+# define ERR_VALUE -1
 
 int				ft_printf(const char *format, ...);
 

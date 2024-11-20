@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/18 14:35:21 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/20 13:32:28 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,22 +29,21 @@ int	ft_printf(const char *format, ...)
 	t_flag	*fdict;
 	t_str	dest;
 
+	if (!format)
+		return (ERR_VALUE);
 	dest.len = ft_strlen(format) + PADDING_BUFF;
 	dest.str = malloc(dest.len);
 	if (!dest.str)
-		return (0);
+		return (ERR_VALUE);
 	fdict = newflags_dict();
 	if (!fdict)
-	{
-		free(dest.str);
-		return (0);
-	}
+		return (free(dest.str), ERR_VALUE);
 	va_start(args, format);
 	fill_fstr(format, &dest, fdict, &args);
 	if (!dest.str)
 	{
 		free_for_quit(&args, fdict, NULL);
-		return (0);
+		return (ERR_VALUE);
 	}
 	write(1, dest.str, dest.len);
 	free_for_quit(&args, fdict, dest.str);
