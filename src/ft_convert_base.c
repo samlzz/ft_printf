@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:35 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/12 20:28:21 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:03:32 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ bool	valid_base(char *base, size_t *len)
 
 char	*ft_itoa_base(int n, char *base)
 {
-	t_str	*dest;
+	t_mem	*dest;
 	size_t	b_len;
 	char	*n_in_b;
 
@@ -53,14 +53,14 @@ char	*ft_itoa_base(int n, char *base)
 	if (!dest)
 		return (NULL);
 	nb_to_astr((long)n, dest, base, b_len);
-	n_in_b = dest->str;
+	n_in_b = dest->content;
 	free(dest);
 	return (n_in_b);
 }
 
 char	*ft_ltoa_base(long n, char *base)
 {
-	t_str	*dest;
+	t_mem	*dest;
 	size_t	b_len;
 	char	*n_in_b;
 
@@ -74,7 +74,7 @@ char	*ft_ltoa_base(long n, char *base)
 	if (!dest)
 		return (NULL);
 	nb_to_astr(n, dest, base, b_len);
-	n_in_b = dest->str;
+	n_in_b = dest->content;
 	free(dest);
 	return (n_in_b);
 }
@@ -83,25 +83,25 @@ char	*ft_ulltoa_base(unsigned long long n, char *base)
 {
 	unsigned long long	tmp;
 	size_t				base_len;
-	t_str				dest;
+	t_mem				dest;
 
 	if (!valid_base(base, &base_len))
 		return (NULL);
 	tmp = n;
-	dest.len = 1;
+	dest.size = 1;
 	while (tmp >= (unsigned long long)base_len)
 	{
 		tmp /= (unsigned long long)base_len;
-		dest.len++;
+		dest.size++;
 	}
-	dest.str = malloc(sizeof(char) * (dest.len + 1));
-	if (!dest.str)
+	dest.content = malloc(sizeof(char) * (dest.size + 1));
+	if (!dest.content)
 		return (NULL);
-	dest.str[dest.len] = '\0';
-	while (dest.len)
+	dest.content[dest.size] = '\0';
+	while (dest.size)
 	{
-		dest.str[--dest.len] = base[n % base_len];
+		dest.content[--dest.size] = base[n % base_len];
 		n /= base_len;
 	}
-	return (dest.str);
+	return (dest.content);
 }

@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/20 15:14:44 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:04:28 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,49 +27,49 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	args;
 	t_flag	*fdict;
-	t_str	dest;
+	t_mem	dest;
 	ssize_t	writted;
 
 	if (!format)
 		return (ERR_VALUE);
-	dest.len = ft_strlen(format) + PADDING_BUFF;
-	dest.str = malloc(dest.len);
-	if (!dest.str)
+	dest.size = ft_strlen(format) + PADDING_BUFF;
+	dest.content = malloc(dest.size);
+	if (!dest.content)
 		return (ERR_VALUE);
 	fdict = newflags_dict();
 	if (!fdict)
-		return (free(dest.str), ERR_VALUE);
+		return (free(dest.content), ERR_VALUE);
 	va_start(args, format);
 	fill_fstr(format, &dest, fdict, &args);
-	if (!dest.str)
+	if (!dest.content)
 		return (free_for_quit(&args, fdict, NULL), ERR_VALUE);
-	writted = write(1, dest.str, dest.len);
-	free_for_quit(&args, fdict, dest.str);
+	writted = write(1, dest.content, dest.size);
+	free_for_quit(&args, fdict, dest.content);
 	if (writted < 0)
 		return (ERR_VALUE);
-	return (dest.len);
+	return (dest.size);
 }
 
-bool	put_in_dest(t_str *dest, t_str flag, size_t *i, size_t *j)
+bool	put_in_dest(t_mem *dest, t_mem flag, size_t *i, size_t *j)
 {
 	size_t	alloc_s;
 
-	if (*j + flag.len > dest->len)
+	if (*j + flag.size > dest->size)
 	{
-		alloc_s = dest->len + flag.len + PADDING_BUFF;
-		dest->str = ft_realloc(dest->str, dest->len, alloc_s);
-		if (!dest->str)
+		alloc_s = dest->size + flag.size + PADDING_BUFF;
+		dest->content = ft_realloc(dest->content, dest->size, alloc_s);
+		if (!dest->content)
 			return (false);
-		dest->len = alloc_s;
+		dest->size = alloc_s;
 	}
-	ft_memmove(dest->str + *j, flag.str, flag.len);
-	free(flag.str);
-	*j += flag.len;
+	ft_memmove(dest->content + *j, flag.content, flag.size);
+	free(flag.content);
+	*j += flag.size;
 	*i += 1;
 	return (true);
 }
 
-void	fill_fstr(const char *format, t_str *dst, t_flag *fdict, va_list *va)
+void	fill_fstr(const char *format, t_mem *dst, t_flag *fdict, va_list *va)
 {
 	size_t			i;
 	size_t			j;
@@ -80,7 +80,7 @@ void	fill_fstr(const char *format, t_str *dst, t_flag *fdict, va_list *va)
 	while (format[i])
 	{
 		while (format[i] != '%' && format[i])
-			dst->str[j++] = format[i++];
+			dst->content[j++] = format[i++];
 		if (!format[i])
 			break ;
 		f = flag_to_str(fdict, format[++i]);
@@ -88,11 +88,11 @@ void	fill_fstr(const char *format, t_str *dst, t_flag *fdict, va_list *va)
 		{
 			if (!format[i])
 				break ;
-			dst->str[j++] = '%';
+			dst->content[j++] = '%';
 			continue ;
 		}
 		if (!put_in_dest(dst, f(va), &i, &j))
 			return (free_for_quit(va, fdict, NULL));
 	}
-	dst->len = j;
+	dst->size = j;
 }

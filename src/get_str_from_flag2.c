@@ -6,20 +6,20 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:05 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 22:18:28 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:02:33 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
 //* INT
-t_str	get_int(va_list *args)
+t_mem	get_int(va_list *args)
 {
 	return (newstr(ft_itoa(va_arg(*args, int))));
 }
 
 //* UNSIGNED INT
-t_str	get_unsigned_int(va_list *args)
+t_mem	get_unsigned_int(va_list *args)
 {
 	return (newstr(
 			ft_ltoa((long)va_arg(*args, unsigned int))
@@ -27,14 +27,14 @@ t_str	get_unsigned_int(va_list *args)
 }
 
 //* INT EN HEX
-t_str	get_hex_int(va_list *args)
+t_mem	get_hex_int(va_list *args)
 {
 	return (newstr(
 			ft_ltoa_base((long)va_arg(*args, unsigned int), "0123456789abcdef")
 		));
 }
 
-t_str	get_upperhex_int(va_list *args)
+t_mem	get_upperhex_int(va_list *args)
 {
 	return (newstr(
 			ft_ltoa_base((long)va_arg(*args, unsigned int), "0123456789ABCDEF")

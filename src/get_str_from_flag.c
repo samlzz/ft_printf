@@ -6,49 +6,49 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:08 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/13 22:38:55 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/02 12:11:49 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdlib.h>
 
-t_str	newstr(char *str)
+t_mem	newstr(char *str)
 {
-	t_str	new;
+	t_mem	new;
 
-	new.str = str;
+	new.content = str;
 	if (!str)
-		new.len = 0;
+		new.size = 0;
 	else
-		new.len = ft_strlen(str);
+		new.size = ft_strlen(str);
 	return (new);
 }
 
 //* CHAR
-t_str	get_char(va_list *args)
+t_mem	get_char(va_list *args)
 {
-	t_str	result;
+	t_mem	result;
 
-	result.len = 0;
-	result.str = malloc(sizeof (char));
-	if (result.str)
+	result.size = 0;
+	result.content = malloc(sizeof (char));
+	if (result.content)
 	{
-		result.len = 1;
-		result.str[0] = (char)va_arg(*args, int);
+		result.size = 1;
+		result.content[0] = (char)va_arg(*args, int);
 	}
 	return (result);
 }
 
 //* %
-t_str	get_percent(va_list *args)
+t_mem	get_percent(va_list *args)
 {
 	(void)args;
 	return (newstr(ft_strdup("%")));
 }
 
 //* STR
-t_str	get_str(va_list *args)
+t_mem	get_str(va_list *args)
 {
 	char	*ptr;
 
@@ -59,9 +59,9 @@ t_str	get_str(va_list *args)
 }
 
 //* HEX PTR
-t_str	get_hex_pointer(va_list *args)
+t_mem	get_hex_pointer(va_list *args)
 {
-	t_str	result;
+	t_mem	result;
 	char	*hex_val;
 	void	*ptr;
 
@@ -69,16 +69,16 @@ t_str	get_hex_pointer(va_list *args)
 	if (!ptr)
 		return (newstr(ft_strdup("(nil)")));
 	hex_val = ft_ulltoa_base((unsigned long long)ptr, "0123456789abcdef");
-	result.len = 2 + ft_strlen(hex_val) + 1;
-	result.str = malloc(sizeof (char) * result.len);
-	if (!result.str)
+	result.size = 2 + ft_strlen(hex_val) + 1;
+	result.content = malloc(sizeof (char) * result.size);
+	if (!result.content)
 	{
-		result.len = 0;
+		result.size = 0;
 		return (result);
 	}
-	ft_strlcpy(result.str, "0x", result.len);
-	ft_strlcat(result.str, hex_val, result.len);
+	ft_strlcpy(result.content, "0x", result.size);
+	ft_strlcat(result.content, hex_val, result.size);
 	free(hex_val);
-	result.len--;
+	result.size--;
 	return (result);
 }
