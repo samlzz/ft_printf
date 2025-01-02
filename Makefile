@@ -6,13 +6,13 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/12 18:21:28 by sliziard          #+#    #+#              #
-#    Updated: 2024/11/18 11:36:18 by sliziard         ###   ########.fr        #
+#    Updated: 2024/11/20 15:13:03 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #* VARIABLES
-#NAME = libftprintf.a
-NAME = fttest
+NAME = libftprintf.a
+#NAME = fttest
 
 #TODO: Folders name must end with '\'
 SRC_DIR = src/
@@ -34,7 +34,7 @@ C_FILES =	flags.c					\
 			ft_realloc.c			\
 			get_str_from_flag.c		\
 			get_str_from_flag2.c	\
-			main.c
+#			main.c
 
 #* Colors
 
@@ -78,9 +78,10 @@ lib: $(LIBFT)
 $(LIBFT):
 	@echo "$(MAGENTA)Retrieving libft sources...$(GRAY)"
 	@$(MD) $(LIBFT)
-	cp -r ~/Documents/cercle0/$(LIBFT)/* ./$(LIBFT)
+	git clone git@github.com:samlzz/libft.git ./$(LIBFT)
 	@echo "$(DEF_COLOR)"
-	@$(RM) ./$(LIBFT)/.git
+	@$(RM) -r ./$(LIBFT)/.git
+	@$(RM) ./$(LIBFT)/.gitignore
 	@printf "\nobjects:\t\$$(OBJ_DIR) \$$(OBJS)\n\t@echo \$$(OBJS) > libft_obj.txt" >> $(LIBFT)/Makefile
 
 $(NAME): $(OBJ_DIR) $(OBJS)

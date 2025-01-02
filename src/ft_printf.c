@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
-/*   Updated: 2024/11/20 13:32:28 by sliziard         ###   ########.fr       */
+/*   Updated: 2024/11/20 15:14:44 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	ft_printf(const char *format, ...)
 	va_list	args;
 	t_flag	*fdict;
 	t_str	dest;
+	ssize_t	writted;
 
 	if (!format)
 		return (ERR_VALUE);
@@ -41,12 +42,11 @@ int	ft_printf(const char *format, ...)
 	va_start(args, format);
 	fill_fstr(format, &dest, fdict, &args);
 	if (!dest.str)
-	{
-		free_for_quit(&args, fdict, NULL);
-		return (ERR_VALUE);
-	}
-	write(1, dest.str, dest.len);
+		return (free_for_quit(&args, fdict, NULL), ERR_VALUE);
+	writted = write(1, dest.str, dest.len);
 	free_for_quit(&args, fdict, dest.str);
+	if (writted < 0)
+		return (ERR_VALUE);
 	return (dest.len);
 }
 
