@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/01/02 12:19:06 by sliziard         ###   ########.fr        #
+#    Updated: 2025/01/02 14:11:32 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,8 @@ UNDERLINE = $(ESC)4m
 
 COLOR_PRINT = @printf "$(1)$(2)$(DEF_COLOR)\n"
 
-
 #* Automatic
 LIBFT_GIT = git@github.com:samlzz/libft.git
-LIBFT_OBJ_RULE = "\nobjects:\t\$$(OBJ_DIR) \$$(OBJS)\n\t@echo \$$(OBJS) > libft_obj.txt"
-LIBFT_BONUS_OBJ_RULE = "\n\nbobjects:\tobjects \$$(BONUS_OBJ)\n\t@echo \$$(BONUS_OBJ) >> libft_obj.txt"
 
 ifdef INCL_DIR
 	CFLAGS += -I$(INCL_DIR)
@@ -64,11 +61,9 @@ O_DIRS := $(sort $(dir $(OBJS)))
 
 #? cmd for make final file
 ifeq ($(suffix $(NAME)), .a)
-	LINK_CMD = $(AR) $(NAME) $(OBJS) $(addprefix $(LIBFT)/, $(shell cat $(LIBFT)/libft_obj.txt))
-	LIBFT_RULE = $(MAKE) objects
+	LINK_CMD = mv $(LIBFT)/libft.a ./$(NAME) && $(AR) $(NAME) $(OBJS)
 else
 	LINK_CMD = $(CC) $(CFLAGS) $(OBJS) $(LIBFT)/libft.a -o $(NAME)
-	LIBFT_RULE = $(MAKE)
 endif
 
 #* Rules
@@ -77,19 +72,16 @@ all:	lib $(NAME)
 
 lib: $(LIBFT)
 	@printf "$(GRAY)"
-	@$(LIBFT_RULE) -C $(LIBFT)
+	@$(MAKE) -C $(LIBFT)
 	$(call COLOR_PRINT,$(GREEN),$(LIBFT)compiled !)
 
 $(LIBFT):
 	$(call COLOR_PRINT,$(MAGENTA),Retrieving libft sources...)
 	@printf "$(GRAY)"
-	@$(MD) $(LIBFT)
 	git clone $(LIBFT_GIT) ./$(LIBFT)
 	@printf "$(DEF_COLOR)"
 	@$(RM) -r ./$(LIBFT)/.git
 	@$(RM) ./$(LIBFT)/.gitignore
-	@printf $(LIBFT_OBJ_RULE) >> $(LIBFT)/Makefile
-	@printf $(LIBFT_BONUS_OBJ_RULE) >> $(LIBFT)/Makefile
 
 relib: dellib all
 
