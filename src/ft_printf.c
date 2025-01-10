@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:58 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/02 12:04:28 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/10 21:20:55 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	free_for_quit(va_list *args, t_flag *fdict, char *to_free1)
+static void	free_for_quit(va_list *args, t_flag *fdict, char *to_free1)
 {
 	va_end(*args);
 	if (fdict)
