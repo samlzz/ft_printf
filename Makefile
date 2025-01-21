@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 #* VARIABLES
-NAME = libftprintf.a
+NAME = plibft.a
 
 #TODO: Folders name must end with '\'
 SRC_DIR = src/
