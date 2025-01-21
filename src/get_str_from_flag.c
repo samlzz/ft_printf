@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:08 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/02 12:11:49 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/21 16:56:02 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,47 @@ t_mem	newstr(char *str)
 }
 
 //* CHAR
-t_mem	get_char(va_list *args)
+t_mem	get_char(va_list args)
 {
 	t_mem	result;
 
 	result.size = 0;
-	result.content = malloc(sizeof (char));
+	result.content = malloc(sizeof (char) * 2);
 	if (result.content)
 	{
 		result.size = 1;
-		result.content[0] = (char)va_arg(*args, int);
+		result.content[0] = (char)va_arg(args, int);
+		result.content[1] = 0;
 	}
 	return (result);
 }
 
 //* %
-t_mem	get_percent(va_list *args)
+t_mem	get_percent(va_list args)
 {
 	(void)args;
 	return (newstr(ft_strdup("%")));
 }
 
 //* STR
-t_mem	get_str(va_list *args)
+t_mem	get_str(va_list args)
 {
 	char	*ptr;
 
-	ptr = va_arg(*args, char *);
+	ptr = va_arg(args, char *);
 	if (!ptr)
 		return (newstr(ft_strdup("(null)")));
 	return (newstr(ft_strdup(ptr)));
 }
 
 //* HEX PTR
-t_mem	get_hex_pointer(va_list *args)
+t_mem	get_hex_pointer(va_list args)
 {
 	t_mem	result;
 	char	*hex_val;
 	void	*ptr;
 
-	ptr = va_arg(*args, void *);
+	ptr = va_arg(args, void *);
 	if (!ptr)
 		return (newstr(ft_strdup("(nil)")));
 	hex_val = ft_ulltoa_base((unsigned long long)ptr, "0123456789abcdef");

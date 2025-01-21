@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/01/02 14:11:32 by sliziard         ###   ########.fr        #
+#    Updated: 2025/01/21 15:39:39 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,18 +20,16 @@ LIBFT = libft
 INCL_DIR = $(LIBFT)
 
 CC = cc
-CFLAGS := -Wall -Wextra -Werror -g3
+CFLAGS := -Wall -Wextra -Werror -g
 RM = rm -f
 MD = mkdir -p
 AR = ar rcs
 
-C_FILES =	flags.c					\
-			ft_convert.c			\
-			ft_convert_base.c		\
-			ft_printf.c				\
-			ft_realloc.c			\
+C_FILES =	ft_printf.c				\
+			ft_vprintf.c			\
 			get_str_from_flag.c		\
-			get_str_from_flag2.c
+			get_str_from_flag2.c	\
+			utils.c
 		
 #* Colors
 
