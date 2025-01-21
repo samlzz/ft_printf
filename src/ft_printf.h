@@ -6,12 +6,16 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:16 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/21 15:32:12 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/21 17:27:18 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
+
+# ifdef FLAGS_H
+#  warning "Check your import, 'flags.h' was already included."
+# endif
 
 # include "flags.h"
 
@@ -20,6 +24,7 @@
 # ifndef PRINTF_PADDING
 #  define PRINTF_PADDING 42
 # endif
+
 
 int			ft_printf(const char *format, ...);
 int			ft_fprintf(int fd, const char *format, ...);
