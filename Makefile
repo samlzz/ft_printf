@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/01/21 15:39:39 by sliziard         ###   ########.fr        #
+#    Updated: 2025/01/21 21:48:16 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,13 @@ NAME = plibft.a
 SRC_DIR = src/
 OBJ_DIR = build/
 LIBFT = libft
+
 INCL_DIR = $(LIBFT)
+LIB_DIRS = $(LIBFT)
+LIB_FILES = ft
 
 CC = cc
-CFLAGS := -Wall -Wextra -Werror -g
+CFLAGS := -Wall -Wextra -Werror -MMD -g3
 RM = rm -f
 MD = mkdir -p
 AR = ar rcs
@@ -49,19 +52,19 @@ COLOR_PRINT = @printf "$(1)$(2)$(DEF_COLOR)\n"
 #* Automatic
 LIBFT_GIT = git@github.com:samlzz/libft.git
 
-ifdef INCL_DIR
-	CFLAGS += -I$(INCL_DIR)
-endif
+INCL_FLAGS = $(addprefix -I, $(INCL_DIR))
+LIB_FLAGS = $(addprefix -L, $(LIB_DIRS)) $(addprefix -l, $(LIB_FILES))
 
 SRCS := $(addprefix $(SRC_DIR), $(C_FILES))
 OBJS := $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRCS))
+DEPS = $(OBJS:.o=.d)
 O_DIRS := $(sort $(dir $(OBJS)))
 
 #? cmd for make final file
 ifeq ($(suffix $(NAME)), .a)
 	LINK_CMD = mv $(LIBFT)/libft.a ./$(NAME) && $(AR) $(NAME) $(OBJS)
 else
-	LINK_CMD = $(CC) $(CFLAGS) $(OBJS) $(LIBFT)/libft.a -o $(NAME)
+	LINK_CMD = $(CC) $(OBJS) -o $(NAME) $(CFLAGS) $(LIB_FLAGS)
 endif
 
 #* Rules
@@ -81,7 +84,7 @@ $(LIBFT):
 	@$(RM) -r ./$(LIBFT)/.git
 	@$(RM) ./$(LIBFT)/.gitignore
 
-relib: dellib all
+relib: dellib $(LIBFT)
 
 dellib:
 	$(call COLOR_PRINT,$(MAGENTA),$(LIBFT) cleaned !)
@@ -94,7 +97,9 @@ $(NAME): $(O_DIRS) $(OBJS)
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.c
 	$(call COLOR_PRINT,$(YELLOW),Compiling: $<)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) -c $< -o $@ $(CFLAGS) $(INCL_FLAGS)
+
+-include $(DEPS)
 
 $(O_DIRS):
 	@$(MD) $@
@@ -114,4 +119,4 @@ fclean:		clean
 re:		fclean all
 	$(call COLOR_PRINT,$(GREEN),Cleaned and rebuilt everything for $(NAME)!)
 
-.PHONY:		all lib relib dellib clean fclean re run
+.PHONY:		all lib relib dellib clean fclean re
