@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 #* VARIABLES
-NAME = plibft.a
+NAME = libftp.a
 
 #TODO: Folders name must end with '\'
 SRC_DIR = src/
