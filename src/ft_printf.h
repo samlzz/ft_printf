@@ -6,18 +6,18 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:50:16 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/21 17:27:18 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:40:12 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# ifdef FLAGS_H
+# ifdef FTP_FLAGS_H
 #  warning "Check your import, 'flags.h' was already included."
 # endif
 
-# include "flags.h"
+# include "ftp_flags.h"
 
 # define ERR_VALUE -1
 

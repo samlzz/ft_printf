@@ -6,11 +6,11 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:05 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/21 10:38:06 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:41:04 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ftp_flags.h"
 
 //* INT
 t_mem	get_int(va_list args)

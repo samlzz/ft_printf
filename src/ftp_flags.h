@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   flags.h                                            :+:      :+:    :+:   */
+/*   ftp_flags.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:49:35 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/21 14:51:15 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:40:01 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FLAGS_H
-# define FLAGS_H
+#ifndef FTP_FLAGS_H
+# define FTP_FLAGS_H
 
 # include "libft.h"
 # include <stdarg.h>

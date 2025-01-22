@@ -6,11 +6,11 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:08 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/21 16:56:02 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/01/22 13:40:56 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "ftp_flags.h"
 #include <stdlib.h>
 
 t_mem	newstr(char *str)

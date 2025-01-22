@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/01/21 21:48:16 by sliziard         ###   ########.fr        #
+#    Updated: 2025/01/22 13:41:30 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ C_FILES =	ft_printf.c				\
 			ft_vprintf.c			\
 			get_str_from_flag.c		\
 			get_str_from_flag2.c	\
-			ftprintfs_utils.c
+			ftp_utils.c
 		
 #* Colors
 
