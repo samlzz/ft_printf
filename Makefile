@@ -29,7 +29,7 @@ C_FILES =	ft_printf.c				\
 			ft_vprintf.c			\
 			get_str_from_flag.c		\
 			get_str_from_flag2.c	\
-			utils.c
+			ftprintfs_utils.c
 		
 #* Colors
 
