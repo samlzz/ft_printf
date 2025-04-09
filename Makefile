@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/01/22 13:41:30 by sliziard         ###   ########.fr        #
+#    Updated: 2025/04/09 17:28:45 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,7 +62,7 @@ O_DIRS := $(sort $(dir $(OBJS)))
 
 #? cmd for make final file
 ifeq ($(suffix $(NAME)), .a)
-	LINK_CMD = mv $(LIBFT)/libft.a ./$(NAME) && $(AR) $(NAME) $(OBJS)
+	LINK_CMD = mv $(LIBFT)/$(LIBFT).a ./$(NAME) && $(AR) $(NAME) $(OBJS)
 else
 	LINK_CMD = $(CC) $(OBJS) -o $(NAME) $(CFLAGS) $(LIB_FLAGS)
 endif
@@ -113,7 +113,7 @@ clean:
 
 fclean:		clean
 	@$(RM) $(NAME)
-	@$(RM) $(LIBFT)/libft.a
+	@$(RM) $(LIBFT)/$(LIBFT).a
 	$(call COLOR_PRINT,$(CYAN),executables files cleaned!)
 
 re:		fclean all
