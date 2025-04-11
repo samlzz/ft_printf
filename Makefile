@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/04/11 14:41:48 by sliziard         ###   ########.fr        #
+#    Updated: 2025/04/11 15:49:34 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -88,6 +88,8 @@ relib: dellib $(LIBFT)
 dellib:
 	$(call COLOR_PRINT,$(MAGENTA),$(LIBFT) cleaned !)
 	@$(RM) -r $(LIBFT)
+	@sed -i 's|^LIBFT *=.*|LIBFT = libft|' Makefile 2>/dev/null || true
+	@sed -i -E '/^LIB_FILES *=/ s/\bft\w*\b/ft/g' Makefile 2>/dev/null || true
 
 $(NAME): $(O_DIRS) $(OBJS)
 	@printf "$(GRAY)"
