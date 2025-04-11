@@ -1,8 +1,14 @@
-**/main.c
-**/a.out
 **/**.swp
 .vscode/*
-**/ign_*
-test/*
 
-build/**
+**/main.c
+**/ign_*
+
+libft*
+
+build/*
+*.d
+*.o
+*.map
+*.a
+*.out

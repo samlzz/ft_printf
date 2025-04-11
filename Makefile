@@ -6,7 +6,7 @@
 #    By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/01/02 12:19:06 by sliziard          #+#    #+#              #
-#    Updated: 2025/04/09 17:28:45 by sliziard         ###   ########.fr        #
+#    Updated: 2025/04/11 14:23:54 by sliziard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -74,7 +74,6 @@ all:	lib $(NAME)
 lib: $(LIBFT)
 	@printf "$(GRAY)"
 	@$(MAKE) -C $(LIBFT)
-	$(call COLOR_PRINT,$(GREEN),$(LIBFT)compiled !)
 
 $(LIBFT):
 	$(call COLOR_PRINT,$(MAGENTA),Retrieving libft sources...)
