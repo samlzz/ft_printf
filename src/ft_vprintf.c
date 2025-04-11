@@ -6,15 +6,16 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:04:55 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/21 16:59:26 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:45:47 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "private/ftp_flags.h"
 #include "ft_printf.h"
 #include <stdlib.h>
 #include <unistd.h>
 
-static bool	_put_in_dest(t_mem *dest, t_mem flag, size_t *i, size_t *j)
+static inline bool	_put_in_dest(t_mem *dest, t_mem flag, size_t *i, size_t *j)
 {
 	size_t	alloc_s;
 
@@ -36,13 +37,15 @@ static bool	_put_in_dest(t_mem *dest, t_mem flag, size_t *i, size_t *j)
 	return (true);
 }
 
-static void	_fill_fstr(const char *format, t_mem *dst, t_flag *fdict, va_list va)
+static void	_fill_fstr(const char *format, t_mem *dst, t_flag *fdict, \
+	va_list va)
 {
 	size_t			i;
 	size_t			j;
 	t_get_str_func	f;
 
-	(i = 0, j = 0);
+	i = 0;
+	j = 0;
 	while (format[i])
 	{
 		while (format[i] != '%' && format[i] && j < dst->size - 1)
@@ -78,7 +81,10 @@ int	ft_vsrprintf(char **str, size_t n, const char *format, va_list ap)
 		dest.content[dest.size - 1] = 0;
 	}
 	else
-		dest = (t_mem) {*str, n};
+	{
+		dest.content = *str;
+		dest.size = n;
+	}
 	if (!dest.content)
 		return (ERR_VALUE);
 	init_flags(fdict);
@@ -112,4 +118,3 @@ int	ft_vfprintf(int fd, const char *format, va_list ap)
 		return (ERR_VALUE);
 	return (dest.size);
 }
-

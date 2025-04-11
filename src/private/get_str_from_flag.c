@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 17:51:08 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/22 13:40:56 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:48:51 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_mem	get_hex_pointer(va_list args)
 	ptr = va_arg(args, void *);
 	if (!ptr)
 		return (newstr(ft_strdup("(nil)")));
-	hex_val = ft_ulltoa_base((unsigned long long)ptr, "0123456789abcdef");
+	hex_val = ft_ulltoa_base((uint64_t)ptr, "0123456789abcdef");
 	result.size = 2 + ft_strlen(hex_val) + 1;
 	result.content = malloc(sizeof (char) * result.size);
 	if (!result.content)

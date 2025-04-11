@@ -6,15 +6,20 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 14:49:35 by sliziard          #+#    #+#             */
-/*   Updated: 2025/01/22 13:40:01 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/04/11 14:43:01 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FTP_FLAGS_H
 # define FTP_FLAGS_H
 
-# include "libft.h"
-# include <stdarg.h>
+//? for t_mem
+# include "private/libft_internal.h"
+
+# ifndef FT_PRINTF_H
+#  include "libft.h"
+#  include <stdarg.h>
+# endif
 
 # define FLAG_NB 9
 
