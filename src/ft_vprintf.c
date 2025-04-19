@@ -6,7 +6,7 @@
 /*   By: sliziard <sliziard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/21 10:04:55 by sliziard          #+#    #+#             */
-/*   Updated: 2025/04/11 14:45:47 by sliziard         ###   ########.fr       */
+/*   Updated: 2025/04/19 22:13:05 by sliziard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 static inline bool	_put_in_dest(t_mem *dest, t_mem flag, size_t *i, size_t *j)
 {
+	char	*content;
 	size_t	alloc_s;
 
 	if (!flag.content)
@@ -24,9 +25,11 @@ static inline bool	_put_in_dest(t_mem *dest, t_mem flag, size_t *i, size_t *j)
 	if (*j + flag.size > dest->size - 1)
 	{
 		alloc_s = dest->size + flag.size + PRINTF_PADDING;
-		dest->content = ft_realloc(dest->content, dest->size, alloc_s);
-		if (!dest->content)
+		content = ft_realloc(dest->content, dest->size, alloc_s);
+		if (!content)
 			return (false);
+		free(dest->content);
+		dest->content = content;
 		dest->content[alloc_s - 1] = 0;
 		dest->size = alloc_s;
 	}
@@ -74,19 +77,19 @@ int	ft_vsrprintf(char **str, size_t n, const char *format, va_list ap)
 
 	if (!format)
 		return (ERR_VALUE);
-	dest.size = ft_strlen(format) + 1;
+	dest.size = ft_strlen(format);
 	if (n < dest.size)
 	{
-		dest.content = ft_realloc(*str, n, dest.size);
-		dest.content[dest.size - 1] = 0;
+		dest.content = ft_realloc(*str, n, dest.size + 1);
+		if (!dest.content)
+			return (ERR_VALUE);
+		free(*str);
 	}
+	else if (*str)
+		dest = (t_mem) {*str, n};
 	else
-	{
-		dest.content = *str;
-		dest.size = n;
-	}
-	if (!dest.content)
 		return (ERR_VALUE);
+	dest.content[dest.size] = '\0';
 	init_flags(fdict);
 	_fill_fstr(format, &dest, fdict, ap);
 	if (!dest.content)
